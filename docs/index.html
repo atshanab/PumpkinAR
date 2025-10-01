@@ -1,17 +1,30 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pumpkin AR — Quick Look</title>
+<title>Tap to Place Pumpkin in AR</title>
 <style>
-  body { margin:0; background:#000; color:#fff; font-family:-apple-system, BlinkMacSystemFont, Arial, sans-serif;
-         display:flex; align-items:center; justify-content:center; min-height:100vh; text-align:center; }
-  a.btn { display:inline-block; padding:16px 20px; background:#ff6a00; color:#000; border-radius:12px; font-weight:700; text-decoration:none; }
-  p { opacity:.85; max-width:520px; margin:14px auto 0; }
+  html,body{margin:0;height:100%;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+  .wrap{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;gap:16px;padding:24px}
+  .btn{display:inline-block;background:#ff6a00;color:#000;padding:18px 24px;border-radius:16px;
+       font-weight:800;font-size:22px;text-decoration:none;box-shadow:0 6px 20px rgba(255,106,0,.35);
+       animation:pulse 1.1s infinite ease-in-out}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+  .hint{opacity:.85;max-width:520px;margin:0 auto;font-size:14px}
 </style>
 <body>
-  <div>
-    <h1>🎃 Pumpkin AR</h1>
-    <p><a class="btn" rel="ar" href="Halloween_Cursed_Pumpkin.usdz">Open in AR</a></p>
-    <p>If Camera preview blocks it, tap the Safari icon first.</p>
+  <div class="wrap">
+    <div>
+      <a class="btn" id="ar" rel="ar" href="Halloween_Cursed_Pumpkin.usdz">TAP TO PLACE IN AR</a>
+      <p class="hint">If a preview appears, tap the AR icon to place it.</p>
+    </div>
   </div>
+  <script>
+    // If someone taps anywhere on the page, trigger the AR link (big target area)
+    document.addEventListener('click', function(e){
+      const a = document.getElementById('ar');
+      if (a) a.click();
+    }, { once:true });
+    // Prevent accidental text selection / long-press menus
+    document.addEventListener('touchstart', ()=>{}, {passive:true});
+  </script>
 </body>
